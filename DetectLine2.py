@@ -50,13 +50,13 @@ def DetectBlueLine(src):
     try:
         line_L = line_L[line_L[:, 0].argsort()[-1]]
         degree_L = line_L[4]
-        cv2.line(ccan, (line_L[0], line_L[1]), (line_L[2], line_L[3]), (255, 255, 255), 10, cv2.LINE_AA)
+        cv2.line(ccan, (line_L[0], line_L[1]), (line_L[2], line_L[3]), (255, 255, 255), 3, cv2.LINE_AA)
     except:
         degree_L = 0
     try:
         line_R = line_R[line_R[:, 0].argsort()[0]]
         degree_R = line_R[4]
-        cv2.line(ccan, (line_R[0], line_R[1]), (line_R[2], line_R[3]), (255, 255, 255), 10, cv2.LINE_AA)
+        cv2.line(ccan, (line_R[0], line_R[1]), (line_R[2], line_R[3]), (255, 255, 255), 3, cv2.LINE_AA)
     except:
         degree_R = 0
 
