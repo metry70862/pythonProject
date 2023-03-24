@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-
 def DetectBlueLine(src):
     b_l_threshold = (100, 100, 100)
     b_h_threshold = (150, 255, 255)
@@ -11,7 +10,7 @@ def DetectBlueLine(src):
 
     blue_img = cv2.bitwise_and(src, src, mask=b_mask)
 
-    # GrayScale로 변환
+    # GrayScale 로 변환
     grayscale = cv2.cvtColor(blue_img, cv2.COLOR_BGR2GRAY)
 
     # 모서리 검출
@@ -32,16 +31,15 @@ def DetectBlueLine(src):
     if line_arr is not None:
         line_arr2 = np.empty((len(line_arr), 5), int)
         for i in range(0, len(line_arr)):
-            temp = 0
             l = line_arr[i][0]
             line_arr2[i] = np.append(line_arr[i], np.array((np.arctan2(l[1] - l[3], l[0] - l[2]) * 180) / np.pi))
             if line_arr2[i][1] > line_arr2[i][3]:
                 temp = line_arr2[i][0], line_arr2[i][1]
                 line_arr2[i][0], line_arr2[i][1] = line_arr2[i][2], line_arr2[i][3]
                 line_arr2[i][2], line_arr2[i][3] = temp
-            if line_arr2[i][0] < 320 and (abs(line_arr2[i][4]) < 170 and abs(line_arr2[i][4]) > 95):
+            if line_arr2[i][0] < 320 and (170 > abs(line_arr2[i][4]) > 95):
                 line_L = np.append(line_L, line_arr2[i])
-            elif line_arr2[i][0] > 320 and (abs(line_arr2[i][4]) < 170 and abs(line_arr2[i][4]) > 95):
+            elif line_arr2[i][0] > 320 and (170 > abs(line_arr2[i][4]) > 95):
                 line_R = np.append(line_R, line_arr2[i])
     line_L = line_L.reshape(int(len(line_L) / 5), 5)
     line_R = line_R.reshape(int(len(line_R) / 5), 5)
@@ -62,7 +60,7 @@ def DetectBlueLine(src):
 
     # 원본에 합성
     outcome = cv2.addWeighted(src, 1, ccan, 1, 0)
-    return outcome
+    return outcome, degree_L, degree_R
 
 
 cam = cv2.VideoCapture(0)
@@ -77,7 +75,7 @@ while cam.isOpened():
 
     if status:
         frame = cv2.resize(frame, (640, 360))
-        cv2.imshow('test', DetectBlueLine(frame))
+        cv2.imshow('test', DetectBlueLine(frame)[0])
         l, r = DetectBlueLine(frame)[1], DetectBlueLine(frame)[2]
 
         if abs(l) <= 155 or abs(r) <= 155:
