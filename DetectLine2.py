@@ -2,12 +2,12 @@ import cv2
 import numpy as np
 
 def DetectBlueLine(src):
-    b_l_threhold = (100, 100, 100)
-    b_h_threhold = (150, 255, 255)
+    b_l_threshold = (100, 100, 100)
+    b_h_threshold = (150, 255, 255)
 
     hsv_img = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
 
-    b_mask = cv2.inRange(hsv_img, b_l_threhold, b_h_threhold)
+    b_mask = cv2.inRange(hsv_img, b_l_threshold, b_h_threshold)
 
     blue_img = cv2.bitwise_and(src, src, mask=b_mask)
 
