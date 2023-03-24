@@ -78,6 +78,25 @@ while cam.isOpened():
     if status:
         frame = cv2.resize(frame, (640, 360))
         cv2.imshow('test', DetectBlueLine(frame))
+        l, r = DetectBlueLine(frame)[1], DetectBlueLine(frame)[2]
+
+        if abs(l) <= 155 or abs(r) <= 155:
+            if l == 0 or r == 0:
+                if l < 0 or r < 0:
+                    print('left')
+                elif l > 0 or r > 0:
+                    print('right')
+            elif abs(l - 15) > abs(r):
+                print('right')
+            elif abs(r + 15) > abs(l):
+                print('left')
+            else:
+                print('go')
+        else:
+            if l > 155 or r > 155:
+                print('hard right')
+            elif l < -155 or r < -155:
+                print('hard left')
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
