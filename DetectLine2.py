@@ -22,8 +22,6 @@ def run():
 while True:
     run();
 
-
-
 def DetectBlueLine(src):
 
     #HSV로 변환후 파란색만 추출
