@@ -10,6 +10,7 @@ def DetectBlueLine(src):
     blue_img = cv2.bitwise_and(src, src, mask=b_mask)
 
     # GrayScale 로 변환
+    
     grayscale = cv2.cvtColor(blue_img, cv2.COLOR_BGR2GRAY)
 
     # 모서리 검출
