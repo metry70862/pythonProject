@@ -6,7 +6,7 @@ import time
 
 # 시리얼 장치 연결
 # 보레이드 9600, 장치 위치 ttyUSB0
-ser = serial.Serial('/dev/ttyUSB0',9600, timeout = 5)
+ser = serial.Serial('/dev/ttyACM0',9600, timeout = 5)
 
 def run():
     #시리얼 쓰기
