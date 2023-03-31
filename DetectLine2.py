@@ -84,7 +84,7 @@ while cam.isOpened():
                     print('right')
             elif abs(l - 15) > abs(r):
                 print('right')
-            elif abs(r + 15) > abs(l):
+            elif abs(r + 15) > abs(l):q
                 print('left')
             else:
                 print('go')
